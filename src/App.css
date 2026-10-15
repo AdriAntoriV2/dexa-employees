@@ -441,3 +441,61 @@
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Sidebar account and sign-out */
+
+.sidebar-account {
+  margin-top: auto;
+  padding: 18px 0 12px;
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+.sidebar-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 0 12px 14px;
+}
+
+.sidebar-identity-name {
+  overflow: hidden;
+  color: #f5efed;
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-identity-role {
+  color: #b5a9a6;
+  font-size: 11px;
+}
+
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: #e2d4d1;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.sidebar-logout:hover {
+  color: #ffffff;
+  background: var(--color-sidebar-hover);
+}
+
+.sidebar-logout:focus-visible {
+  outline: 2px solid #d99a95;
+  outline-offset: 2px;
+}

@@ -24,8 +24,10 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
-function isEmployeeRole(role: string): boolean {
-  return role.toUpperCase() === 'EMPLOYEE'
+const ALLOWED_PORTAL_ROLES = new Set(['EMPLOYEE', 'HR'])
+
+function isAllowedPortalRole(role: string): boolean {
+  return ALLOWED_PORTAL_ROLES.has(role.toUpperCase())
 }
 
 function normalizeEmployeeRole<T extends { role: string }>(user: T): T {
@@ -51,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const account = normalizeEmployeeRole(response.employee)
 
-      if (!isEmployeeRole(account.role)) {
+      if (!isAllowedPortalRole(account.role)) {
         tokenStorage.clear()
         setEmployee(null)
         throw new ApiError(
@@ -81,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const user = await apiRequest<AuthUser>('/auth/me')
         const normalizedUser = normalizeEmployeeRole(user)
 
-        if (!isEmployeeRole(normalizedUser.role)) {
+        if (!isAllowedPortalRole(normalizedUser.role)) {
           throw new ApiError(
             'This account cannot access the employee portal.',
             403,

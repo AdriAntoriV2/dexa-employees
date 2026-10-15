@@ -1,9 +1,11 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   Clock3,
   LayoutDashboard,
+  LogOut,
   UserRound,
 } from 'lucide-react'
+import { useAuth } from '../../contexts/AuthContext'
 
 const navigation = [
   { label: 'Dashboard', to: '/', icon: LayoutDashboard },
@@ -12,6 +14,14 @@ const navigation = [
 ]
 
 export function Sidebar() {
+  const { logout, employee } = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
     <aside className="sidebar">
       <a className="brand" href="/" aria-label="Dexa home">
@@ -36,6 +46,28 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      <div className="sidebar-account">
+        {employee && (
+          <div className="sidebar-identity">
+            <span className="sidebar-identity-name">
+              {employee.fullName}
+            </span>
+            <span className="sidebar-identity-role">
+              {employee.role === 'HR' ? 'HR account' : 'Employee account'}
+            </span>
+          </div>
+        )}
+
+        <button
+          className="sidebar-logout"
+          type="button"
+          onClick={handleLogout}
+        >
+          <LogOut size={18} />
+          <span>Sign out</span>
+        </button>
+      </div>
 
       <div className="sidebar-footer">
         <span className="status-dot" />
