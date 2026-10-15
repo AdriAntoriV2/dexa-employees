@@ -13,7 +13,7 @@ import {
     UserRound,
 } from 'lucide-react'
 import { ApiError } from '../services/api'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../contexts/useAuth'
 import {
     changeMyPassword,
     getMyProfile,

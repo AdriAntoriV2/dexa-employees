@@ -1,30 +1,18 @@
-
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from 'react'
+import { AuthContext } from './AuthContext'
+import type { AuthContextValue } from './AuthContext'
 import { apiRequest, ApiError, tokenStorage } from '../services/api'
 import type {
   AuthUser,
   Employee,
   LoginResponse,
 } from '../types/auth'
-
-interface AuthContextValue {
-  employee: Employee | null
-  isAuthenticated: boolean
-  isLoading: boolean
-  login: (companyEmail: string, password: string) => Promise<void>
-  logout: () => void
-  updateEmployee: (employee: Employee) => void
-}
-
-const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
 const ALLOWED_PORTAL_ROLES = new Set(['EMPLOYEE', 'HR'])
 
@@ -142,14 +130,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   )
-}
-
-export function useAuth(): AuthContextValue {
-  const context = useContext(AuthContext)
-
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider.')
-  }
-
-  return context
 }
