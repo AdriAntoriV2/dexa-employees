@@ -6,6 +6,7 @@ import {
 import { AppLayout } from './components/layout/AppLayout'
 import { ProtectedRoute } from './components/layout/ProtectedRoute'
 import { DashboardPage } from './pages/DashboardPage'
+import { AttendancePage } from './pages/AttendancePage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import './App.css'
@@ -19,10 +20,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
             <Route index element={<DashboardPage />} />
-            <Route
-              path="attendance"
-              element={<PlaceholderPage title="Attendance" />}
-            />
+            <Route path="attendance" element={<AttendancePage />} />
             <Route
               path="profile"
               element={<PlaceholderPage title="My Profile" />}
