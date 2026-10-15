@@ -1,3 +1,4 @@
+
 import {
   createContext,
   useCallback,
@@ -20,6 +21,7 @@ interface AuthContextValue {
   isLoading: boolean
   login: (companyEmail: string, password: string) => Promise<void>
   logout: () => void
+  updateEmployee: (employee: Employee) => void
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -41,6 +43,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     tokenStorage.clear()
     setEmployee(null)
+  }, [])
+
+  const updateEmployee = useCallback((updatedEmployee: Employee) => {
+    setEmployee(normalizeEmployeeRole(updatedEmployee))
   }, [])
 
   const login = useCallback(
@@ -126,8 +132,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isLoading,
       login,
       logout,
+      updateEmployee,
     }),
-    [employee, isLoading, login, logout],
+    [employee, isLoading, login, logout, updateEmployee],
   )
 
   return (
