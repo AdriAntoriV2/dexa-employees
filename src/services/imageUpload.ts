@@ -165,5 +165,7 @@ export async function uploadProfileImage(file: File): Promise<string> {
         throw new Error('ImgBB returned an unexpected image host.')
     }
 
+    uploadedUrl.hostname = 'i.ibb.co.com'
+
     return uploadedUrl.toString()
 }
