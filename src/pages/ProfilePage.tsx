@@ -176,7 +176,7 @@ export function ProfilePage() {
 
         const updates = {
             phoneNumber: normalizedPhone,
-            photoUrl: normalizedPhotoUrl,
+            photoUrl: normalizedPhotoUrl || null,
         }
 
         if (
@@ -413,7 +413,9 @@ export function ProfilePage() {
                                             }}
                                         />
                                     ) : (
-                                        <Camera size={24} />
+                                        <span className="profile-upload-placeholder">
+                                            {getInitials(displayName) || <Camera size={24} />}
+                                        </span>
                                     )}
                                 </div>
 

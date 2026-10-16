@@ -4,7 +4,7 @@ import type { Employee } from '../types/auth'
 
 export interface UpdateMyProfileInput {
   phoneNumber?: string
-  photoUrl?: string
+  photoUrl?: string | null
 }
 
 export interface ChangeMyPasswordInput {
